@@ -1,0 +1,47 @@
+<div class="container my-5">
+  <h1 class="mb-4">Shopping Cart</h1>
+
+  @if (cartItems.length === 0) {
+    <div class="text-center py-5">
+      <img src="assets/empty-cart.png" alt="Empty Cart" class="img-fluid mb-3" style="max-width: 200px;">
+      <h2>Your cart is empty</h2>
+      <p>Add some products to your cart and come back!</p>
+      <div class="text-center mt-4">
+        <a routerLink="/products" class="btn btn-success btn-lg px-4 py-2">Continue Shopping</a>
+      </div>
+    </div>
+  } @else {
+    <div class="row">
+      <div class="col-12">
+        @for (item of cartItems; track item.product.id) {
+          <div class="card mb-3 p-3 d-flex flex-row align-items-center">
+            <img [src]="item.product.thumbnail" [alt]="item.product.title" class="img-thumbnail me-3" style="width: 120px; height: auto;">
+            <div class="flex-grow-1">
+              <h5 class="mb-1">{{item.product.title}}</h5>
+              <p class="mb-1 text-muted">{{item.product.brand}}</p>
+              <p class="mb-1 fw-bold">${{item.product.price}}</p>
+            </div>
+            <div class="d-flex align-items-center me-4">
+              <button class="btn btn-outline-secondary btn-sm me-2" (click)="decrementQuantity(item)" [disabled]="item.quantity <= 1">-</button>
+              <span class="px-2">{{item.quantity}}</span>
+              <button class="btn btn-outline-secondary btn-sm ms-2" (click)="incrementQuantity(item)">+</button>
+            </div>
+            <div class="me-4 fw-bold">
+              ${{item.product.price * item.quantity}}
+            </div>
+            <button class="btn btn-danger btn-sm" (click)="removeItem(item.product.id)">×</button>
+          </div>
+        }
+        <div class="card mt-4 p-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="fw-bold">Total:</span>
+            <span class="fw-bold fs-5">${{total}}</span>
+          </div>
+          <div class="text-end mt-3">
+            <button class="btn btn-success btn-lg px-4 py-2">Proceed to Checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

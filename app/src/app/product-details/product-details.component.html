@@ -1,0 +1,99 @@
+<div class="container my-5">
+  @if (loading) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-3">Loading product details...</p>
+    </div>
+  } @else if (error) {
+    <div class="alert alert-danger text-center">
+      <p>{{ error }}</p>
+      <button class="btn btn-outline-danger" (click)="loadProduct(product.id)">Try Again</button>
+    </div>
+  } @else if (product) {
+    <div class="row g-5">
+      <!-- Image Gallery -->
+      <div class="col-md-6">
+        <div class="position-relative text-center">
+          <button
+            class="btn btn-light position-absolute top-50 start-0 translate-middle-y"
+            (click)="previousImage()"
+            [style.display]="product.images.length > 1 ? 'block' : 'none'"
+          >
+            ❮
+          </button>
+
+          <img
+            [src]="product.images[currentImageIndex]"
+            [alt]="product.title"
+            class="img-fluid rounded border"
+          >
+
+          <button
+            class="btn btn-light position-absolute top-50 end-0 translate-middle-y"
+            (click)="nextImage()"
+            [style.display]="product.images.length > 1 ? 'block' : 'none'"
+          >
+            ❯
+          </button>
+        </div>
+
+        <div
+          class="d-flex justify-content-center gap-2 mt-3 flex-wrap"
+          *ngIf="product.images.length > 1"
+        >
+          @for (image of product.images; track $index) {
+            <img
+              [src]="image"
+              [alt]="product.title + ' thumbnail'"
+              class="img-thumbnail"
+              [class.border-success]="currentImageIndex === $index"
+              style="width: 60px; height: 60px; object-fit: cover; cursor: pointer;"
+              (click)="currentImageIndex = $index"
+            >
+          }
+        </div>
+      </div>
+
+      <!-- Product Info -->
+      <div class="col-md-6">
+        <h1>{{ product.title }}</h1>
+        <p class="text-muted">{{ product.brand }}</p>
+
+        <div class="mb-2">
+          <span class="text-warning">
+            @for (star of [1,2,3,4,5]; track star) {
+              <span [class.fw-bold]="star <= product.rating">★</span>
+            }
+          </span>
+          <span class="ms-2 text-secondary">{{ product.rating }}</span>
+        </div>
+
+        <p class="h4 text-success">${{ product.price }}</p>
+
+        <p class="mt-3">{{ product.description }}</p>
+
+        <div class="mb-3">
+          <span
+            class="badge fs-5 py-2 px-3"
+            [ngClass]="product.stock > 0 ? 'bg-danger' : 'bg-secondary'"
+          >
+            {{ product.stock > 0 ? 'In Stock (' + product.stock + ' available)' : 'Out of Stock' }}
+          </span>
+        </div>
+
+        <button
+          class="btn btn-success btn-lg mb-3"
+          (click)="addToCart()"
+          [disabled]="product.stock === 0"
+        >
+          {{ product.stock > 0 ? 'Add to Cart' : 'Out of Stock' }}
+        </button>
+
+        <div class="mt-4">
+          <p><strong>Category:</strong> {{ product.category }}</p>
+          <p><strong>Brand:</strong> {{ product.brand }}</p>
+        </div>
+      </div>
+    </div>
+  }
+</div>

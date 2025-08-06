@@ -1,0 +1,84 @@
+.item-grid {
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 80vw;
+    gap: 20px;
+}
+
+.item-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 24px 16px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    min-height: 320px;
+    transition: box-shadow 0.2s;
+}
+.item-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.item-img {
+    width: 100%;
+    height: 140px;
+    object-fit: contain;
+    margin-bottom: 16px;
+}
+
+.title-price-div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #222;
+}
+.price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #222;
+}
+.description {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+}
+
+.stock {
+    border-radius: 30px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 10;
+    color: white;
+    background: red;
+    padding: 2px 16px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+.in-stock {
+    background: #22c55e; /* green-500 */
+}
+
+.add-to-cart-btn {
+    background: #fff;
+    color: #222;
+    border: 2px solid #22c55e;
+    border-radius: 20px;
+    padding: 6px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.add-to-cart-btn:hover {
+    background: #22c55e;
+    color: #fff;
+}
